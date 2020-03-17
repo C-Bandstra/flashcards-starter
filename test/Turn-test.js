@@ -15,12 +15,21 @@ describe('Turn', function() {
     assert.isObject(turn)
   }); 
 
+  it('should be able to store a guess', function() {
+    const turn = new Turn('blah');
+    assert.equal(turn.guess, 'blah')
+  })
+
+  it('should be able to store a card', function() {
+    const turn = new Turn('blah');
+    assert.equal(turn.guess, 'blah')
+  })
+
   it('should be able to return the guess', function() {
     const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object')
 
     const turn = new Turn('array', card)
-
-    var guess = turn.returnGuess();
+    const guess = turn.returnGuess();
 
     assert.equal(guess, 'array')
 
@@ -30,8 +39,7 @@ describe('Turn', function() {
     const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object')
 
     const turn = new Turn('array', card)
-
-    var currentCard = turn.returnCard();
+    const currentCard = turn.returnCard();
 
     assert.equal(currentCard, card)
   });  
@@ -40,8 +48,7 @@ describe('Turn', function() {
     const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object')
 
     const turn = new Turn('array', card)
-
-    var checkGuess = turn.evaluateGuess()
+    const checkGuess = turn.evaluateGuess()
 
     assert.equal(checkGuess, true);
   });  
@@ -51,7 +58,7 @@ describe('Turn', function() {
 
     const turn = new Turn('string', card)
 
-    var checkGuess = turn.evaluateGuess()
+    const checkGuess = turn.evaluateGuess()
 
     assert.equal(checkGuess, false);
   });  
@@ -61,7 +68,7 @@ describe('Turn', function() {
 
     const turn = new Turn('array', card)
   
-    var checkGuess = turn.evaluateGuess(turn.guess)
+    const checkGuess = turn.evaluateGuess(turn.guess)
   
     assert.equal(turn.giveFeedback(checkGuess), 'Correct!');
   });  
@@ -71,7 +78,7 @@ describe('Turn', function() {
 
     const turn = new Turn('boolean', card)
   
-    var checkGuess = turn.evaluateGuess(turn.guess)
+    const checkGuess = turn.evaluateGuess(turn.guess)
   
     assert.equal(turn.giveFeedback(checkGuess), 'Incorrect!');
   });    
