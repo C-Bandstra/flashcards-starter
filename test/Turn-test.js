@@ -1,85 +1,47 @@
 const chai = require('chai');
-const assert = chai.assert;
-
-const Turn = require('../src/Turn');
+const { expect } = chai;
 const Card = require('../src/Card');
+const Turn = require('../src/Turn');
 
 describe('Turn', function() {
 
-  it('should be a function', function() {
-    assert.isFunction(Turn)
-  });
+  let card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+
+  let turn = new Turn('Bicycle', card);
+
+  beforeEach('reset', function() {
+    card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+
+    turn = new Turn('Bicycle', card);
+  })
 
   it('should be an instance of Turn', function() {
-    const turn = new Turn();
-    assert.isObject(turn)
-  }); 
-
-  it('should be able to store a guess', function() {
-    const turn = new Turn('blah');
-    assert.equal(turn.guess, 'blah')
+    expect(turn).to.be.an.instanceOf(Turn);
   })
 
-  it('should be able to store a card', function() {
-    const turn = new Turn('blah');
-    assert.equal(turn.guess, 'blah')
+  it('should have a guess and card', function() {
+    expect(turn.guess).to.equal('Bicycle');
+    expect(turn.card).to.equal(card);
   })
 
-  it('should be able to return the guess', function() {
-    const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object')
+  it('should return the guess', function() {
+    expect(turn.returnGuess()).to.equal('Bicycle');
+  })
 
-    const turn = new Turn('array', card)
-    const guess = turn.returnGuess();
+  it('should return the card', function() {
+    expect(turn.returnCard()).to.equal(card);
+  })
 
-    assert.equal(guess, 'array')
+  it('should evaluate the guess', function() {
+    const turn1 = new Turn('object', card);
+    expect(turn.evaluateGuess()).to.equal(false);
+    expect(turn1.evaluateGuess()).to.equal(true);
+  })
 
-  });  
+  it('should provide feedback', function () {
+    const turn1 = new Turn('object', card);
+    expect(turn.provideFeedback()).to.equal('incorrect!');
+    expect(turn1.provideFeedback()).to.equal('correct!');
+  })
 
-  it('should be able to return the card', function() {
-    const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object')
-
-    const turn = new Turn('array', card)
-    const currentCard = turn.returnCard();
-
-    assert.equal(currentCard, card)
-  });  
-
-  it('should return true if guess is correct', function() {
-    const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object')
-
-    const turn = new Turn('array', card)
-    const checkGuess = turn.evaluateGuess()
-
-    assert.equal(checkGuess, true);
-  });  
-
-  it('should return false if guess is incorrect', function() {
-    const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object')
-
-    const turn = new Turn('string', card)
-
-    const checkGuess = turn.evaluateGuess()
-
-    assert.equal(checkGuess, false);
-  });  
-
-  it('should return Correct! if guess is correct', function() {
-    const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object')
-
-    const turn = new Turn('array', card)
-  
-    const checkGuess = turn.evaluateGuess(turn.guess)
-  
-    assert.equal(turn.giveFeedback(checkGuess), 'Correct!');
-  });  
-
-  it('should return Incorrect! if guess is incorrect', function() {
-    const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object')
-
-    const turn = new Turn('boolean', card)
-  
-    const checkGuess = turn.evaluateGuess(turn.guess)
-  
-    assert.equal(turn.giveFeedback(checkGuess), 'Incorrect!');
-  });    
-});
+})
