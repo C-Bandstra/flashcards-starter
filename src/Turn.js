@@ -13,17 +13,11 @@ class Turn {
   }
 
   evaluateGuess() {
-    let evaluation = false;
-    const correct = this.card.answers.filter(answer => answer == this.guess);
-    correct.length ? evaluation = true : evaluation;
-    this.giveFeedback(evaluation);
-    return evaluation
+    return this.guess === this.card.correctAnswer;
   }
 
-  giveFeedback(evaluation) {
-    let feedback;
-    evaluation ? feedback = 'Correct!' : feedback = 'Incorrect!'
-    return feedback;
+  giveFeedback() {
+    return this.evaluateGuess() ? 'Correct!' : 'Incorrect!'
   }
 }
 
