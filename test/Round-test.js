@@ -1,6 +1,5 @@
-
 const chai = require('chai');
-const assert = chai.assert;
+const expect = chai.expect;
 
 const Card = require('../src/Card');
 const Deck = require('../src/Deck');
@@ -23,7 +22,7 @@ describe('Round', function() {
   })
 
   it('should be an instance of Round', function() {
-    assert.isObject(round).isEqual(Round)
+    expect(round).to.be.an.instanceOf(Round)
   })
 
   it('should be instantiated with zero turns', function() {
@@ -71,7 +70,6 @@ describe('Round', function() {
   it('should calculate the percentage correct', function() {
     round.takeTurn('sea otter')
     round.takeTurn('gallbladder')
-    console.log(round)
     expect(round.calculatePercentCorrect()).to.equal(100)
     round.takeTurn('a wrong guess')
     expect(round.calculatePercentCorrect()).to.equal(66)

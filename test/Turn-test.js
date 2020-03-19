@@ -1,13 +1,12 @@
 const chai = require('chai');
-const { expect } = chai;
+const expect = chai.expect;
 const Card = require('../src/Card');
 const Turn = require('../src/Turn');
 
 describe('Turn', function() {
 
-  let card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-
-  let turn = new Turn('Bicycle', card);
+  let card;
+  let turn;
 
   beforeEach('reset', function() {
     card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
@@ -38,10 +37,10 @@ describe('Turn', function() {
     expect(turn1.evaluateGuess()).to.equal(true);
   })
 
-  it('should provide feedback', function () {
+  it('should give feedback', function () {
     const turn1 = new Turn('object', card);
-    expect(turn.provideFeedback()).to.equal('incorrect!');
-    expect(turn1.provideFeedback()).to.equal('correct!');
+    expect(turn.giveFeedback()).to.equal('Incorrect!');
+    expect(turn1.giveFeedback()).to.equal('Correct!');
   })
 
 })
