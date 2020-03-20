@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-
 const genList = (round) => {
   let card = round.returnCurrentCard();
   
@@ -36,9 +35,13 @@ async function main(round) {
   const getConfirm = await inquirer.prompt(confirmUpdate(getAnswer.answers, round));
 
     if(!round.returnCurrentCard()) {
+      round.timer.stopTimer();
       console.log(round.endRound());
+      console.log(round.timer.getTime());
+      console.log('Try to beat your time and score!!!');
       round.incorrectGuesses = []
       round.turns = 0
+      round.timer.startTimer();
       main(round)
     } else {
       main(round);
