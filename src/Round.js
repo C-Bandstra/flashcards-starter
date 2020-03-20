@@ -1,10 +1,12 @@
 const Turn = require('../src/Turn');
+const Timer = require('../src/Timer');
 
 class Round {
   constructor(deck) {
     this.deck = deck;
     this.turns = 0;
     this.incorrectGuesses = [];
+    this.timer = new Timer()
   }
 
   returnCurrentCard() {
